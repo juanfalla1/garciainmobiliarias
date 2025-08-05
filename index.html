@@ -1,0 +1,983 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inmobiliaria García, Rincón y CIA</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #1a3a6c;
+            --secondary: #c9a74d;
+            --accent: #8fb8d6;
+            --light: #f8f9fa;
+            --dark: #343a40;
+            --gray: #6c757d;
+            --success: #28a745;
+            --font-main: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-main);
+            line-height: 1.6;
+            color: #333;
+            background-color: #f5f7fa;
+            overflow-x: hidden;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        /* Header Styles */
+        header {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+        }
+
+        .logo h1 {
+            font-size: 1.8rem;
+            color: var(--primary);
+            font-weight: 700;
+        }
+
+        .logo h1 span {
+            color: var(--secondary);
+        }
+
+        .logo p {
+            font-size: 0.9rem;
+            color: var(--gray);
+            font-style: italic;
+        }
+
+        .contact-info {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--dark);
+        }
+
+        .contact-item i {
+            color: var(--secondary);
+        }
+
+        nav {
+            background-color: var(--primary);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-links li {
+            position: relative;
+        }
+
+        .nav-links a {
+            display: block;
+            color: white;
+            text-decoration: none;
+            padding: 15px 20px;
+            transition: background-color 0.3s;
+        }
+
+        .nav-links a:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .nav-links a.active {
+            background-color: var(--secondary);
+        }
+
+        .hamburger {
+            display: none;
+            cursor: pointer;
+            color: white;
+            font-size: 1.5rem;
+            padding: 15px;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(26, 58, 108, 0.8), rgba(26, 58, 108, 0.8)), url('https://images.unsplash.com/photo-1560518883-ce09059eeffa?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1773&q=80') no-repeat center center/cover;
+            color: white;
+            padding: 100px 0;
+            text-align: center;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hero h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background-color: var(--secondary);
+            color: white;
+            text-decoration: none;
+            padding: 12px 30px;
+            border-radius: 4px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: transform 0.3s, background-color 0.3s;
+        }
+
+        .cta-button:hover {
+            background-color: #b6953d;
+            transform: translateY(-3px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Services Section */
+        .services {
+            padding: 80px 0;
+            background-color: white;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .section-title h2 {
+            font-size: 2rem;
+            color: var(--primary);
+            position: relative;
+            display: inline-block;
+            padding-bottom: 10px;
+        }
+
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background-color: var(--secondary);
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .service-card {
+            background-color: var(--light);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .service-icon {
+            background-color: var(--accent);
+            color: white;
+            font-size: 2.5rem;
+            padding: 25px;
+            text-align: center;
+        }
+
+        .service-content {
+            padding: 25px;
+        }
+
+        .service-content h3 {
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+
+        .service-content ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .service-content ul li {
+            padding: 8px 0;
+            border-bottom: 1px dashed #ddd;
+            display: flex;
+            align-items: center;
+        }
+
+        .service-content ul li:last-child {
+            border-bottom: none;
+        }
+
+        .service-content ul li i {
+            color: var(--secondary);
+            margin-right: 10px;
+        }
+
+        /* Featured Property */
+        .featured-property {
+            padding: 80px 0;
+            background-color: #f0f5fc;
+        }
+
+        .property-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 40px;
+            align-items: center;
+        }
+
+        .property-image {
+            flex: 1;
+            min-width: 300px;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .property-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 0.5s;
+        }
+
+        .property-image:hover img {
+            transform: scale(1.05);
+        }
+
+        .property-details {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .property-details h2 {
+            color: var(--primary);
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+        }
+
+        .property-details p {
+            margin-bottom: 20px;
+        }
+
+        .property-features {
+            margin: 25px 0;
+        }
+
+        .feature-group {
+            margin-bottom: 20px;
+        }
+
+        .feature-group h3 {
+            color: var(--secondary);
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            padding-bottom: 5px;
+            border-bottom: 2px solid var(--accent);
+            display: inline-block;
+        }
+
+        .feature-list {
+            list-style: none;
+            padding-left: 20px;
+        }
+
+        .feature-list li {
+            margin-bottom: 8px;
+            position: relative;
+        }
+
+        .feature-list li::before {
+            content: '✓';
+            color: var(--success);
+            font-weight: bold;
+            position: absolute;
+            left: -20px;
+        }
+
+        .property-contact {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            margin-top: 30px;
+        }
+
+        .property-contact p {
+            margin-bottom: 15px;
+            font-weight: 500;
+        }
+
+        .contact-methods {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .contact-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: background-color 0.3s;
+        }
+
+        .contact-btn.phone {
+            background-color: var(--success);
+            color: white;
+        }
+
+        .contact-btn.email {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .contact-btn.dm {
+            background-color: var(--secondary);
+            color: white;
+        }
+
+        .contact-btn:hover {
+            opacity: 0.9;
+        }
+
+        /* Contact Section */
+        .contact {
+            padding: 80px 0;
+            background-color: white;
+        }
+
+        .contact-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 50px;
+        }
+
+        .contact-info {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .contact-form {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .contact-info h3 {
+            color: var(--primary);
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+        }
+
+        .contact-info p {
+            margin-bottom: 30px;
+            font-size: 1.1rem;
+        }
+
+        .contact-methods-info {
+            list-style: none;
+            margin-top: 30px;
+        }
+
+        .contact-methods-info li {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+        }
+
+        .contact-methods-info i {
+            width: 40px;
+            height: 40px;
+            background-color: var(--accent);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+
+        .contact-form h3 {
+            color: var(--primary);
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-family: inherit;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--accent);
+        }
+
+        .form-group textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        .submit-btn {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 4px;
+            font-size: 1.1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .submit-btn:hover {
+            background-color: #0d2a4d;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 50px 0 20px;
+        }
+
+        .footer-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 50px;
+            margin-bottom: 30px;
+        }
+
+        .footer-col {
+            flex: 1;
+            min-width: 250px;
+        }
+
+        .footer-col h4 {
+            color: var(--secondary);
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .footer-col h4::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 2px;
+            background-color: var(--secondary);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+
+        .footer-links a {
+            color: #ddd;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: var(--secondary);
+        }
+
+        .footer-contact li {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .footer-contact i {
+            color: var(--secondary);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.9rem;
+            color: #aaa;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .header-top {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .nav-links {
+                display: none;
+                flex-direction: column;
+            }
+            
+            .nav-links.active {
+                display: flex;
+            }
+            
+            .hamburger {
+                display: block;
+                position: absolute;
+                right: 15px;
+                top: 15px;
+            }
+            
+            .hero h2 {
+                font-size: 2rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero {
+                padding: 70px 0;
+            }
+            
+            .services, .featured-property, .contact {
+                padding: 60px 0;
+            }
+            
+            .contact-methods {
+                flex-direction: column;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .hero h2 {
+                font-size: 1.8rem;
+            }
+            
+            .section-title h2 {
+                font-size: 1.6rem;
+            }
+            
+            .property-details h2 {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-top">
+                <div class="logo">
+                    <h1><span>Inmobiliaria García, Rincón y CIA</span></h1>
+                    <p>Tu mejor espacio comienza con una buena decisión.</p>
+                </div>
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <i class="fas fa-phone"></i>
+                        <span>+57 321 456 7890</span>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <span>contacto@inmobiliariagr.com</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <nav>
+            <div class="container">
+                <div class="hamburger">
+                    <i class="fas fa-bars"></i>
+                </div>
+                <ul class="nav-links"><li><a href="#quienes">¿Quiénes Somos?</a></li>
+                    <li><a href="#" class="active">Inicio</a></li>
+                    <li><a href="#about">Sobre Nosotros</a></li>
+                    <li><a href="#properties">Nuestras Propiedades</a></li>
+                    <li><a href="#services">Servicios</a></li>
+                    <li><a href="#contact">Contacto</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="about">
+        <div class="container">
+            <div class="hero-content">
+                <h2>Tu mejor espacio comienza con una buena decisión</h2>
+                <p>Sabemos que encontrar un lugar ideal para vivir, invertir o crecer no es cualquier decisión. Por eso, en Inmobiliaria García, Rincón y CIA lo hacemos fácil, seguro y confiable.</p>
+                <p><strong>Más que vender propiedades, construimos relaciones basadas en confianza y resultados.</strong></p>
+                <a href="#contact" class="cta-button">Contáctanos Hoy</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quiénes Somos Section -->
+    <section class="quienes-somos" id="quienes" style="padding: 80px 0; background-color: #ffffff;">
+        <div class="container">
+            <div class="section-title">
+                <h2>¿Quiénes Somos?</h2>
+            </div>
+            <div class="quienes-content" style="display: flex; flex-wrap: wrap; gap: 40px; align-items: center; margin-top: 40px;">
+                <div style="flex: 0 0 45%; min-width: 280px;">
+                    <video controls style="width: 100%; border-radius: 8px;">
+                        <source src="c22c23b5-d818-4227-8f48-6a9f21a26f3a.mp4" type="video/mp4">
+                        Tu navegador no soporta la reproducción de video.
+                    </video>
+                </div>
+                <div style="flex: 0 0 50%; min-width: 280px;">
+                    <p style="font-size: 1.1rem; line-height: 1.7;">
+                        Contamos con más de 20 años de experiencia en el sector inmobiliario, brindando asesoría y acompañamiento personalizado a nuestros clientes.
+                        Nos especializamos en la venta, arriendo y administración de bienes inmuebles, garantizando confianza, transparencia y resultados.
+                    </p>
+                    <p style="font-size: 1.1rem; line-height: 1.7;">
+                        <strong>Más que vender propiedades, construimos relaciones basadas en honestidad, compromiso y resultados.</strong>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="services" id="services">
+        <div class="container">
+            <div class="section-title">
+                <h2>Nuestros Servicios Integrales</h2>
+            </div>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-home"></i>
+                    </div>
+                    <div class="service-content">
+                        <h3>Propiedades</h3>
+                        <ul>
+                            <li><i class="fas fa-check-circle"></i> Amplia oferta de inmuebles: casas, apartamentos, fincas y más</li>
+                            <li><i class="fas fa-check-circle"></i> Permutas</li>
+                            <li><i class="fas fa-check-circle"></i> Arrendamientos</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-gavel"></i>
+                    </div>
+                    <div class="service-content">
+                        <h3>Asesoría Legal</h3>
+                        <ul>
+                            <li><i class="fas fa-check-circle"></i> Asesorías jurídicas</li>
+                            <li><i class="fas fa-check-circle"></i> Respaldo legal en la operación</li>
+                            <li><i class="fas fa-check-circle"></i> Gestión de trámites</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <div class="service-content">
+                        <h3>Consultoría</h3>
+                        <ul>
+                            <li><i class="fas fa-check-circle"></i> Estudios de mercado</li>
+                            <li><i class="fas fa-check-circle"></i> Valoración de propiedades</li>
+                            <li><i class="fas fa-check-circle"></i> Asesoría de inversión</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Property -->
+    <section class="featured-property" id="properties">
+        <div class="container">
+            <div class="section-title">
+                <h2>Propiedad Destacada</h2>
+            </div>
+            <div class="property-container">
+                <div class="property-image">
+                    <img src="https://images.unsplash.com/photo-1574362848149-11496d93a7c7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1684&q=80" alt="Casa en Moniquirá">
+                    <div class="property-video" style="margin-top: 20px;">
+                        <video controls style="width: 100%; border-radius: 8px;">
+                            <source src="video1.mp4" type="video/mp4">
+                            Tu navegador no soporta la reproducción de video.
+                        </video>
+                    </div>
+                </div>
+                <div class="property-details">
+                    <h2>Impresionante Casa Amoblada en Moniquirá</h2>
+                    <p>Estamos vendiendo esta casa de 896 m² amoblada ubicada en el municipio Moniquirá, superge con tres niveles o tres pisos.</p>
+                    
+                    <div class="property-features">
+                        <div class="feature-group">
+                            <h3>Segundo Nivel</h3>
+                            <ul class="feature-list">
+                                <li>Cocina amplia con comedor y nevera</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="feature-group">
+                            <h3>Primer Nivel</h3>
+                            <ul class="feature-list">
+                                <li>Baño de invitados grande con luz natural</li>
+                                <li>Habitación con cama grande, camarote, armario y baño con ducha</li>
+                                <li>Sala gigante con mueble para libros, fotos y ventanas amplias</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="feature-group">
+                            <h3>Último Nivel</h3>
+                            <ul class="feature-list">
+                                <li>Dos armarios grandes</li>
+                                <li>Habitación espaciosa con dos armarios, vista exterior y cama grande</li>
+                                <li>Otra habitación con armario, cama y camarote</li>
+                                <li>Rejilla con vista hacia la sala</li>
+                                <li>Baño con ducha</li>
+                                <li>Habitación con armario, cama doble y baño</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="feature-group">
+                            <h3>Exteriores y Adicionales</h3>
+                            <ul class="feature-list">
+                                <li>Asadero</li>
+                                <li>Dos corrales de gallinas</li>
+                                <li>Tanque de reserva</li>
+                                <li>Vista de la sala y jaula de pollitos</li>
+                                <li>Apartamento pequeño con terreno</li>
+                                <li>Garaje con espacio para un carro y otro parqueadero exterior</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="property-contact">
+                        <p>Si te interesa esta casa, contáctanos hoy mismo:</p>
+                        <div class="contact-methods">
+                            <a href="tel:+573214567890" class="contact-btn phone">
+                                <i class="fas fa-phone"></i> Llamar
+                            </a>
+                            <a href="mailto:contacto@inmobiliariagr.com" class="contact-btn email">
+                                <i class="fas fa-envelope"></i> Email
+                            </a>
+                            <a href="#" class="contact-btn dm">
+                                <i class="fab fa-instagram"></i> DM
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact" id="contact">
+        <div class="container">
+            <div class="section-title">
+                <h2>Contáctanos</h2>
+            </div>
+            <div class="contact-container">
+                <div class="contact-info">
+                    <h3>Tu próximo hogar, tu mejor inversión</h3>
+                    <p>Contáctanos hoy y descubre por qué en Inmobiliaria García, Rincón y CIA, tu mejor espacio comienza con una buena decisión.</p>
+                    
+                    <ul class="contact-methods-info">
+                        <li>
+                            <i class="fas fa-phone"></i>
+                            <div>
+                                <strong>Teléfono:</strong><br>
+                                +57 321 456 7890
+                            </div>
+                        </li>
+                        <li>
+                            <i class="fas fa-envelope"></i>
+                            <div>
+                                <strong>Email:</strong><br>
+                                contacto@inmobiliariagr.com
+                            </div>
+                        </li>
+                        <li>
+                            <i class="fab fa-instagram"></i>
+                            <div>
+                                <strong>Redes Sociales:</strong><br>
+                                @InmobiliariaGR
+                            </div>
+                        </li>
+                        <li>
+                            <i class="fas fa-map-marker-alt"></i>
+                            <div>
+                                <strong>Oficina Principal:</strong><br>
+                                Calle Principal #123, Moniquirá, Boyacá
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="contact-form">
+                    <h3>Envíanos un mensaje</h3>
+                    <form>
+                        <div class="form-group">
+                            <label for="name">Nombre completo</label>
+                            <input type="text" id="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Correo electrónico</label>
+                            <input type="email" id="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Teléfono</label>
+                            <input type="tel" id="phone">
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Mensaje</label>
+                            <textarea id="message" required></textarea>
+                        </div>
+                        <button type="submit" class="submit-btn">Enviar Mensaje</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-container">
+                <div class="footer-col">
+                    <h4>Inmobiliaria García, Rincón y CIA</h4>
+                    <p>Tu mejor espacio comienza con una buena decisión. Más que vender propiedades, construimos relaciones basadas en confianza y resultados.</p>
+                </div>
+                
+                <div class="footer-col">
+                    <h4>Enlaces Rápidos</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">Inicio</a></li>
+                        <li><a href="#about">Sobre Nosotros</a></li>
+                        <li><a href="#properties">Propiedades</a></li>
+                        <li><a href="#services">Servicios</a></li>
+                        <li><a href="#contact">Contacto</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <h4>Contacto</h4>
+                    <ul class="footer-contact">
+                        <li>
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>Calle Principal #123, Moniquirá, Boyacá</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-phone"></i>
+                            <span>+57 321 456 7890</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-envelope"></i>
+                            <span>contacto@inmobiliariagr.com</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2023 Inmobiliaria García, Rincón y CIA. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Navigation Toggle
+        document.querySelector('.hamburger').addEventListener('click', function() {
+            document.querySelector('.nav-links').classList.toggle('active');
+        });
+        
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    window.scrollTo({
+                        top: target.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                    
+                    // Close mobile menu if open
+                    document.querySelector('.nav-links').classList.remove('active');
+                }
+            });
+        });
+        
+        // Form submission
+        const contactForm = document.querySelector('.contact-form form');
+        if (contactForm) {
+            contactForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                alert('¡Gracias por tu mensaje! Nos pondremos en contacto contigo muy pronto.');
+                this.reset();
+            });
+        }
+    </script>
+</body>
+</html>
