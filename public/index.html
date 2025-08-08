@@ -979,5 +979,32 @@
             });
         }
     </script>
+
+    <!-- Botón flotante de WhatsApp -->
+<a href="https://wa.me/573117184387"
+class="whatsapp-float"
+target="_blank"
+aria-label="Chat en WhatsApp">
+<img src="https://img.icons8.com/color/48/000000/whatsapp--v1.png"
+    alt="WhatsApp" />
+</a>
+
+<style>
+.whatsapp-float {
+position: fixed;
+bottom: 20px;
+right: 20px;
+z-index: 999;
+background-color: #25d366;
+border-radius: 50%;
+padding: 12px;
+box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+transition: transform 0.2s;
+}
+.whatsapp-float:hover {
+transform: scale(1.1);
+}
+</style>
+
 </body>
 </html>
