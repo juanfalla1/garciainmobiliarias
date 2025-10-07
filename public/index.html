@@ -120,14 +120,22 @@
     .footer-contact i{color:var(--secondary)}
     .copyright{text-align:center;padding-top:20px;border-top:1px solid rgba(255,255,255,.1);font-size:.9rem;color:#aaa}
 
-    /* WhatsApp Floating Button (único) */
-    .whatsapp-float{
-      position:fixed;bottom:20px;right:20px;z-index:999;background:#25d366;border-radius:50%;padding:12px;
-      box-shadow:0 4px 12px rgba(0,0,0,.3);transition:transform .2s
-    }
+    /* WhatsApp Floating Button */
+    .whatsapp-float{position:fixed;bottom:20px;right:20px;z-index:999;background:#25d366;border-radius:50%;padding:12px;
+      box-shadow:0 4px 12px rgba(0,0,0,.3);transition:transform .2s}
     .whatsapp-float:hover{transform:scale(1.1)}
 
-    /* ---------- Responsive ---------- */
+    /* ---------- Carousel (fotos + videos) ---------- */
+    .carousel { position:relative; width:100%; max-width:980px; margin:30px auto; background:#000; border-radius:10px; overflow:hidden; box-shadow:0 10px 20px rgba(0,0,0,.15); }
+    .carousel-track { display:flex; transition:transform .5s ease; }
+    .carousel-slide { min-width:100%; max-height:65vh; display:flex; align-items:center; justify-content:center; background:#000; }
+    .carousel-slide img, .carousel-slide video { width:100%; height:auto; max-height:65vh; object-fit:cover; }
+    .carousel-nav { position:absolute; inset:0; display:flex; justify-content:space-between; align-items:center; pointer-events:none; }
+    .carousel-btn { pointer-events:all; background:rgba(0,0,0,.4); border:0; color:#fff; font-size:22px; width:42px; height:42px; border-radius:50%; margin:0 10px; cursor:pointer; }
+    .carousel-dots { position:absolute; bottom:10px; left:0; right:0; display:flex; gap:8px; justify-content:center; }
+    .carousel-dot { width:9px; height:9px; border-radius:50%; background:rgba(255,255,255,.4); border:1px solid rgba(255,255,255,.7); cursor:pointer; }
+    .carousel-dot.active { background: var(--secondary); }
+
     @media (max-width: 992px){
       .header-top{flex-direction:column;gap:10px}
       .contact-info.header{flex-wrap:wrap;justify-content:center}
@@ -136,7 +144,6 @@
       .nav-links a{padding:14px 16px;border-top:1px solid rgba(255,255,255,.1)}
       .hamburger{display:block;position:absolute;right:10px;top:6px}
       .hero h2{font-size:2rem}
-      /* ¿Quiénes somos? (romper a columna) */
       .quienes-content{flex-direction:column !important}
       .quienes-content > div{flex:1 1 100% !important;min-width:0 !important}
       .quienes-content video{width:100%;height:auto;display:block}
@@ -145,6 +152,7 @@
       .hero{padding:70px 0}
       .services,.featured-property,.contact{padding:60px 0}
       .contact-methods{flex-direction:column}
+      .carousel-slide img, .carousel-slide video { max-height:50vh; }
     }
     @media (max-width: 576px){
       .hero h2{font-size:1.8rem}
@@ -203,7 +211,7 @@
       <div class="quienes-content" style="display:flex;flex-wrap:wrap;gap:40px;align-items:center;margin-top:40px;">
         <div style="flex:0 0 45%;min-width:280px;">
           <video controls style="width:100%;border-radius:8px;">
-            <source src="/videos/tour2.mp4" type="video/mp4" />
+            <source src="videos/tour2.mp4" type="video/mp4" />
             Tu navegador no soporta la reproducción de video.
           </video>
         </div>
@@ -217,45 +225,58 @@
     </div>
   </section>
 
+  <!-- Carrusel (FOTOS + VIDEOS) -->
+  <section class="container" style="padding:40px 0">
+    <div class="section-title"><h2>Galería</h2></div>
+    <div class="carousel" id="mediaCarousel">
+      <div class="carousel-track" id="carouselTrack"></div>
+      <div class="carousel-nav">
+        <button class="carousel-btn" id="prevBtn" aria-label="Anterior">&#10094;</button>
+        <button class="carousel-btn" id="nextBtn" aria-label="Siguiente">&#10095;</button>
+      </div>
+      <div class="carousel-dots" id="carouselDots"></div>
+    </div>
+  </section>
+
   <!-- Servicios -->
   <section class="services" id="services">
     <div class="container">
       <div class="section-title"><h2>Nuestros Servicios Integrales</h2></div>
-      <div class="services-grid">
-        <div class="service-card">
-          <div class="service-icon"><i class="fas fa-home"></i></div>
-          <div class="service-content">
-            <h3>Propiedades</h3>
-            <ul>
-              <li><i class="fas fa-check-circle"></i> Amplia oferta de inmuebles: casas, apartamentos, fincas y más</li>
-              <li><i class="fas fa-check-circle"></i> Permutas</li>
-              <li><i class="fas fa-check-circle"></i> Arrendamientos</li>
-            </ul>
-          </div>
-        </div>
-        <div class="service-card">
-          <div class="service-icon"><i class="fas fa-gavel"></i></div>
-          <div class="service-content">
-            <h3>Asesoría Legal</h3>
-            <ul>
-              <li><i class="fas fa-check-circle"></i> Asesorías jurídicas</li>
-              <li><i class="fas fa-check-circle"></i> Respaldo legal en la operación</li>
-              <li><i class="fas fa-check-circle"></i> Gestión de trámites</li>
-            </ul>
-          </div>
-        </div>
-        <div class="service-card">
-          <div class="service-icon"><i class="fas fa-chart-line"></i></div>
-          <div class="service-content">
-            <h3>Consultoría</h3>
-            <ul>
-              <li><i class="fas fa-check-circle"></i> Estudios de mercado</li>
-              <li><i class="fas fa-check-circle"></i> Valoración de propiedades</li>
-              <li><i class="fas fa-check-circle"></i> Asesoría de inversión</li>
-            </ul>
-          </div>
+    <div class="services-grid">
+      <div class="service-card">
+        <div class="service-icon"><i class="fas fa-home"></i></div>
+        <div class="service-content">
+          <h3>Propiedades</h3>
+          <ul>
+            <li><i class="fas fa-check-circle"></i> Amplia oferta de inmuebles: casas, apartamentos, fincas y más</li>
+            <li><i class="fas fa-check-circle"></i> Permutas</li>
+            <li><i class="fas fa-check-circle"></i> Arrendamientos</li>
+          </ul>
         </div>
       </div>
+      <div class="service-card">
+        <div class="service-icon"><i class="fas fa-gavel"></i></div>
+        <div class="service-content">
+          <h3>Asesoría Legal</h3>
+          <ul>
+            <li><i class="fas fa-check-circle"></i> Asesorías jurídicas</li>
+            <li><i class="fas fa-check-circle"></i> Respaldo legal en la operación</li>
+            <li><i class="fas fa-check-circle"></i> Gestión de trámites</li>
+          </ul>
+        </div>
+      </div>
+      <div class="service-card">
+        <div class="service-icon"><i class="fas fa-chart-line"></i></div>
+        <div class="service-content">
+          <h3>Consultoría</h3>
+          <ul>
+            <li><i class="fas fa-check-circle"></i> Estudios de mercado</li>
+            <li><i class="fas fa-check-circle"></i> Valoración de propiedades</li>
+            <li><i class="fas fa-check-circle"></i> Asesoría de inversión</li>
+          </ul>
+        </div>
+      </div>
+    </div>
     </div>
   </section>
 
@@ -268,7 +289,7 @@
           <img src="https://images.unsplash.com/photo-1574362848149-11496d93a7c7?auto=format&fit=crop&w=1684&q=80" alt="Casa en Moniquirá" />
           <div class="property-video" style="margin-top:20px;">
             <video controls style="width:100%;border-radius:8px;">
-              <source src="/videos/tour1.mp4" type="video/mp4" />
+              <source src="videos/tour1.mp4" type="video/mp4" />
               Tu navegador no soporta la reproducción de video.
             </video>
           </div>
@@ -425,9 +446,85 @@
         contactForm.reset();
       });
     }
+
+    /* ------- Carrusel (lista EXACTA + encodeURI) ------- */
+    const mediaFiles = [
+      // IMÁGENES
+      { type: 'image', src: 'videos/finca-1_01 - Copy.jpg', alt: 'finca-1_01 - Copy' },
+      { type: 'image', src: 'videos/finca-1_01.jpg', alt: 'finca-1_01' },
+      { type: 'image', src: 'videos/finca-1_02 - Copy.jpg', alt: 'finca-1_02 - Copy' },
+      { type: 'image', src: 'videos/finca-1_02.jpg', alt: 'finca-1_02' },
+      { type: 'image', src: 'videos/finca-1_03 - Copy.jpg', alt: 'finca-1_03 - Copy' },
+      { type: 'image', src: 'videos/finca-1_03.jpg', alt: 'finca-1_03' },
+      { type: 'image', src: 'videos/finca-1_04.jpg', alt: 'finca-1_04' },
+      { type: 'image', src: 'videos/finca-1_05.jpg', alt: 'finca-1_05' },
+      { type: 'image', src: 'videos/finca-1_06.jpg', alt: 'finca-1_06' },
+      { type: 'image', src: 'videos/finca-1_07.jpg', alt: 'finca-1_07' },
+      { type: 'image', src: 'videos/finca-1_08.jpg', alt: 'finca-1_08' },
+      { type: 'image', src: 'videos/finca-1_09.jpg', alt: 'finca-1_09' },
+      { type: 'image', src: 'videos/finca-1_10.jpg', alt: 'finca-1_10' },
+      { type: 'image', src: 'videos/finca-1_11.jpg', alt: 'finca-1_11' },
+      { type: 'image', src: 'videos/finca-1_12.jpg', alt: 'finca-1_12' },
+      { type: 'image', src: 'videos/finca-13.jpg', alt: 'finca-13' },
+
+      // VIDEOS
+      { type: 'video', src: 'videos/finca-1_tour-01.mp4' },
+      { type: 'video', src: 'videos/finca-1_tour-02.mp4' },
+      { type: 'video', src: 'videos/finca-1_tour-03.mp4' },
+      { type: 'video', src: 'videos/finca-1_tour-04.mp4' },
+      { type: 'video', src: 'videos/tour1.mp4' },
+      { type: 'video', src: 'videos/tour2.mp4' }
+    ];
+
+    const track = document.getElementById('carouselTrack');
+    const dotsWrap = document.getElementById('carouselDots');
+
+    mediaFiles.forEach((m, i) => {
+      const slide = document.createElement('div');
+      slide.className = 'carousel-slide';
+
+      if (m.type === 'image') {
+        const img = document.createElement('img');
+        img.src = encodeURI(m.src);  // importante para nombres con espacios
+        img.alt = m.alt || ('Imagen ' + (i+1));
+        slide.appendChild(img);
+      } else {
+        const video = document.createElement('video');
+        video.src = encodeURI(m.src); // importante para nombres con espacios
+        video.controls = true;
+        video.preload = 'metadata';
+        slide.appendChild(video);
+      }
+      track.appendChild(slide);
+
+      const dot = document.createElement('button');
+      dot.className = 'carousel-dot' + (i===0 ? ' active' : '');
+      dot.setAttribute('aria-label', `Ir a slide ${i+1}`);
+      dot.addEventListener('click', () => goTo(i));
+      dotsWrap.appendChild(dot);
+    });
+
+    let index = 0;
+    const total = mediaFiles.length;
+    const dots = [...document.querySelectorAll('.carousel-dot')];
+
+    function goTo(i){
+      track.querySelectorAll('video').forEach(v => { try{ v.pause(); }catch(_){} });
+      index = (i + total) % total;
+      track.style.transform = `translateX(-${index * 100}%)`;
+      dots.forEach((d,di)=> d.classList.toggle('active', di===index));
+    }
+    document.getElementById('prevBtn').addEventListener('click', () => goTo(index-1));
+    document.getElementById('nextBtn').addEventListener('click', () => goTo(index+1));
+    setInterval(()=> {
+      const v = track.children[index]?.querySelector('video');
+      if (v && !v.paused && !v.ended) return; // no avanzar si hay video reproduciéndose
+      goTo(index+1);
+    }, 5000);
+    goTo(0);
   </script>
 
-  <!-- Botón flotante WhatsApp (único) -->
+  <!-- Botón flotante WhatsApp -->
   <a href="https://wa.me/573117184387" class="whatsapp-float" target="_blank" aria-label="Chatear por WhatsApp">
     <img src="https://cdn-icons-png.flaticon.com/512/124/124034.png" alt="WhatsApp" width="30" height="30" />
   </a>
