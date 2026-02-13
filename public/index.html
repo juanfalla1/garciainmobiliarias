@@ -125,16 +125,43 @@
       box-shadow:0 4px 12px rgba(0,0,0,.3);transition:transform .2s}
     .whatsapp-float:hover{transform:scale(1.1)}
 
-    /* ---------- Carousel (fotos + videos) ---------- */
-    .carousel { position:relative; width:100%; max-width:980px; margin:30px auto; background:#000; border-radius:10px; overflow:hidden; box-shadow:0 10px 20px rgba(0,0,0,.15); }
-    .carousel-track { display:flex; transition:transform .5s ease; }
-    .carousel-slide { min-width:100%; max-height:65vh; display:flex; align-items:center; justify-content:center; background:#000; }
-    .carousel-slide img, .carousel-slide video { width:100%; height:auto; max-height:65vh; object-fit:cover; }
-    .carousel-nav { position:absolute; inset:0; display:flex; justify-content:space-between; align-items:center; pointer-events:none; }
-    .carousel-btn { pointer-events:all; background:rgba(0,0,0,.4); border:0; color:#fff; font-size:22px; width:42px; height:42px; border-radius:50%; margin:0 10px; cursor:pointer; }
-    .carousel-dots { position:absolute; bottom:10px; left:0; right:0; display:flex; gap:8px; justify-content:center; }
-    .carousel-dot { width:9px; height:9px; border-radius:50%; background:rgba(255,255,255,.4); border:1px solid rgba(255,255,255,.7); cursor:pointer; }
-    .carousel-dot.active { background: var(--secondary); }
+    /* ---------- Galeria / Carrusel (fotos + videos) ---------- */
+    .gallery-section{padding:70px 0;background:linear-gradient(180deg,#ffffff 0%, #f0f5fc 55%, #ffffff 100%)}
+    .gallery-intro{max-width:760px;margin:10px auto 0;text-align:center;color:var(--gray)}
+
+    .carousel{position:relative;width:100%;max-width:1060px;margin:28px auto 0;border-radius:16px;overflow:hidden;
+      background:radial-gradient(1200px 600px at 20% 10%, rgba(143,184,214,.35), transparent 55%),
+                 radial-gradient(900px 520px at 80% 0%, rgba(201,167,77,.22), transparent 55%),
+                 linear-gradient(180deg, #0d1a2f 0%, #060b14 100%);
+      box-shadow:0 18px 50px rgba(0,0,0,.18);
+      border:1px solid rgba(255,255,255,.10);
+    }
+
+    .carousel-viewport{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scroll-behavior:smooth;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+    .carousel-viewport::-webkit-scrollbar{display:none}
+
+    .carousel-slide{flex:0 0 100%;scroll-snap-align:center;padding:14px}
+    .carousel-frame{margin:0}
+    .carousel-media{position:relative;border-radius:14px;overflow:hidden;background:rgba(0,0,0,.35);
+      aspect-ratio:16/9;display:flex;align-items:center;justify-content:center}
+    .carousel-slide img, .carousel-slide video{width:100%;height:100%;object-fit:contain;display:block}
+    .carousel-slide video{background:#000}
+    .carousel-caption{padding:10px 4px 2px;color:rgba(255,255,255,.86);font-size:.95rem;text-align:center}
+
+    .carousel-nav{position:absolute;inset:0;display:flex;justify-content:space-between;align-items:center;pointer-events:none}
+    .carousel-btn{pointer-events:all;border:0;cursor:pointer;margin:0 12px;width:44px;height:44px;border-radius:999px;
+      background:rgba(255,255,255,.10);backdrop-filter:blur(6px);color:#fff;font-size:22px;box-shadow:0 10px 24px rgba(0,0,0,.22);
+      transition:transform .15s ease, background-color .2s ease}
+    .carousel-btn:hover{transform:translateY(-1px);background:rgba(255,255,255,.16)}
+    .carousel-btn:active{transform:translateY(0)}
+
+    .carousel-footer{position:absolute;left:0;right:0;bottom:0;padding:10px 14px 12px;
+      background:linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,.55) 55%, rgba(0,0,0,.75) 100%);
+      display:flex;align-items:center;justify-content:space-between;gap:10px}
+    .carousel-counter{color:rgba(255,255,255,.86);font-size:.95rem;font-weight:600}
+    .carousel-dots{display:flex;gap:8px;justify-content:center;align-items:center}
+    .carousel-dot{width:9px;height:9px;border-radius:50%;background:rgba(255,255,255,.35);border:1px solid rgba(255,255,255,.55);cursor:pointer}
+    .carousel-dot.active{background:var(--secondary);border-color:rgba(255,255,255,.75)}
 
     @media (max-width: 992px){
       .header-top{flex-direction:column;gap:10px}
@@ -152,7 +179,9 @@
       .hero{padding:70px 0}
       .services,.featured-property,.contact{padding:60px 0}
       .contact-methods{flex-direction:column}
-      .carousel-slide img, .carousel-slide video { max-height:50vh; }
+      .carousel-slide{padding:10px}
+      .carousel-caption{font-size:.9rem}
+      .carousel-btn{width:40px;height:40px}
     }
     @media (max-width: 576px){
       .hero h2{font-size:1.8rem}
@@ -185,6 +214,7 @@
           <li><a href="#" class="active">Inicio</a></li>
           <li><a href="#about">Sobre Nosotros</a></li>
           <li><a href="#properties">Nuestras Propiedades</a></li>
+          <li><a href="#gallery">Galería</a></li>
           <li><a href="#services">Servicios</a></li>
           <li><a href="#contact">Contacto</a></li>
         </ul>
@@ -226,15 +256,22 @@
   </section>
 
   <!-- Carrusel (FOTOS + VIDEOS) -->
-  <section class="container" style="padding:40px 0">
-    <div class="section-title"><h2>Galería</h2></div>
-    <div class="carousel" id="mediaCarousel">
-      <div class="carousel-track" id="carouselTrack"></div>
-      <div class="carousel-nav">
-        <button class="carousel-btn" id="prevBtn" aria-label="Anterior">&#10094;</button>
-        <button class="carousel-btn" id="nextBtn" aria-label="Siguiente">&#10095;</button>
+  <section class="gallery-section" id="gallery">
+    <div class="container">
+      <div class="section-title"><h2>Galería</h2></div>
+      <p class="gallery-intro">Fotos y recorridos en video de la propiedad. Desliza en el carrusel o usa las flechas.</p>
+
+      <div class="carousel" id="mediaCarousel">
+        <div class="carousel-viewport" id="carouselViewport" aria-label="Carrusel de fotos y videos"></div>
+        <div class="carousel-nav">
+          <button class="carousel-btn" id="prevBtn" aria-label="Anterior">&#10094;</button>
+          <button class="carousel-btn" id="nextBtn" aria-label="Siguiente">&#10095;</button>
+        </div>
+        <div class="carousel-footer" aria-hidden="false">
+          <div class="carousel-counter" id="carouselCounter">1 / 1</div>
+          <div class="carousel-dots" id="carouselDots"></div>
+        </div>
       </div>
-      <div class="carousel-dots" id="carouselDots"></div>
     </div>
   </section>
 
@@ -401,6 +438,7 @@
             <li><a href="#">Inicio</a></li>
             <li><a href="#about">Sobre Nosotros</a></li>
             <li><a href="#properties">Propiedades</a></li>
+            <li><a href="#gallery">Galería</a></li>
             <li><a href="#services">Servicios</a></li>
             <li><a href="#contact">Contacto</a></li>
           </ul>
@@ -447,15 +485,16 @@
       });
     }
 
-    /* ------- Carrusel (lista EXACTA + encodeURI) ------- */
+    /* ------- Galeria (lista EXACTA + encodeURI para nombres con espacios) ------- */
     const mediaFiles = [
-      // IMÁGENES
-      { type: 'image', src: 'videos/finca-1_01 - Copy.jpg', alt: 'finca-1_01 - Copy' },
+      // IMAGENES
       { type: 'image', src: 'videos/finca-1_01.jpg', alt: 'finca-1_01' },
-      { type: 'image', src: 'videos/finca-1_02 - Copy.jpg', alt: 'finca-1_02 - Copy' },
+      { type: 'image', src: 'videos/finca-1_01 - Copy.jpg', alt: 'finca-1_01 - Copy' },
       { type: 'image', src: 'videos/finca-1_02.jpg', alt: 'finca-1_02' },
-      { type: 'image', src: 'videos/finca-1_03 - Copy.jpg', alt: 'finca-1_03 - Copy' },
+      { type: 'image', src: 'videos/finca-1_02 - Copy.jpg', alt: 'finca-1_02 - Copy' },
+      { type: 'image', src: 'videos/finca-1_02 (2).jpg', alt: 'finca-1_02 (2)' },
       { type: 'image', src: 'videos/finca-1_03.jpg', alt: 'finca-1_03' },
+      { type: 'image', src: 'videos/finca-1_03 - Copy.jpg', alt: 'finca-1_03 - Copy' },
       { type: 'image', src: 'videos/finca-1_04.jpg', alt: 'finca-1_04' },
       { type: 'image', src: 'videos/finca-1_05.jpg', alt: 'finca-1_05' },
       { type: 'image', src: 'videos/finca-1_06.jpg', alt: 'finca-1_06' },
@@ -466,40 +505,70 @@
       { type: 'image', src: 'videos/finca-1_11.jpg', alt: 'finca-1_11' },
       { type: 'image', src: 'videos/finca-1_12.jpg', alt: 'finca-1_12' },
       { type: 'image', src: 'videos/finca-13.jpg', alt: 'finca-13' },
+      { type: 'image', src: 'videos/WhatsApp Image 2026-02-11 at 2.16.49 PM.jpeg', alt: 'WhatsApp Image 2026-02-11 at 2.16.49 PM' },
+      { type: 'image', src: 'videos/WhatsApp Image 2026-02-11 at 2.16.54 PM.jpeg', alt: 'WhatsApp Image 2026-02-11 at 2.16.54 PM' },
 
       // VIDEOS
+      { type: 'video', src: 'videos/tour1.mp4' },
+      { type: 'video', src: 'videos/tour2.mp4' },
       { type: 'video', src: 'videos/finca-1_tour-01.mp4' },
       { type: 'video', src: 'videos/finca-1_tour-02.mp4' },
       { type: 'video', src: 'videos/finca-1_tour-03.mp4' },
       { type: 'video', src: 'videos/finca-1_tour-04.mp4' },
-      { type: 'video', src: 'videos/tour1.mp4' },
-      { type: 'video', src: 'videos/tour2.mp4' }
+      { type: 'video', src: 'videos/WhatsApp Video 2026-02-11 at 2.16.53 PM.mp4' },
+      { type: 'video', src: 'videos/WhatsApp Video 2026-02-11 at 2.16.53 PM (1).mp4' },
+      { type: 'video', src: 'videos/WhatsApp Video 2026-02-11 at 2.16.53 PM (2).mp4' }
     ];
 
-    const track = document.getElementById('carouselTrack');
+    const viewport = document.getElementById('carouselViewport');
     const dotsWrap = document.getElementById('carouselDots');
+    const counter = document.getElementById('carouselCounter');
+    const carousel = document.getElementById('mediaCarousel');
+
+    function filenameLabel(src){
+      const name = (src || '').split('/').pop() || '';
+      return name.replace(/\.[^.]+$/, '').replace(/_/g, ' ');
+    }
 
     mediaFiles.forEach((m, i) => {
       const slide = document.createElement('div');
       slide.className = 'carousel-slide';
+      slide.dataset.index = String(i);
+
+      const fig = document.createElement('figure');
+      fig.className = 'carousel-frame';
+
+      const mediaWrap = document.createElement('div');
+      mediaWrap.className = 'carousel-media';
 
       if (m.type === 'image') {
         const img = document.createElement('img');
-        img.src = encodeURI(m.src);  // importante para nombres con espacios
-        img.alt = m.alt || ('Imagen ' + (i+1));
-        slide.appendChild(img);
+        img.src = encodeURI(m.src);
+        img.alt = m.alt || ('Imagen ' + (i + 1));
+        img.loading = 'lazy';
+        mediaWrap.appendChild(img);
       } else {
         const video = document.createElement('video');
-        video.src = encodeURI(m.src); // importante para nombres con espacios
+        video.src = encodeURI(m.src);
         video.controls = true;
         video.preload = 'metadata';
-        slide.appendChild(video);
+        video.playsInline = true;
+        mediaWrap.appendChild(video);
       }
-      track.appendChild(slide);
+
+      const cap = document.createElement('figcaption');
+      cap.className = 'carousel-caption';
+      cap.textContent = m.caption || m.alt || filenameLabel(m.src);
+
+      fig.appendChild(mediaWrap);
+      fig.appendChild(cap);
+      slide.appendChild(fig);
+      viewport.appendChild(slide);
 
       const dot = document.createElement('button');
-      dot.className = 'carousel-dot' + (i===0 ? ' active' : '');
-      dot.setAttribute('aria-label', `Ir a slide ${i+1}`);
+      dot.type = 'button';
+      dot.className = 'carousel-dot' + (i === 0 ? ' active' : '');
+      dot.setAttribute('aria-label', `Ir a ${i + 1}`);
       dot.addEventListener('click', () => goTo(i));
       dotsWrap.appendChild(dot);
     });
@@ -508,20 +577,69 @@
     const total = mediaFiles.length;
     const dots = [...document.querySelectorAll('.carousel-dot')];
 
-    function goTo(i){
-      track.querySelectorAll('video').forEach(v => { try{ v.pause(); }catch(_){} });
-      index = (i + total) % total;
-      track.style.transform = `translateX(-${index * 100}%)`;
-      dots.forEach((d,di)=> d.classList.toggle('active', di===index));
+    function isAnyVideoPlaying(){
+      const vids = viewport.querySelectorAll('video');
+      for (const v of vids){
+        if (!v.paused && !v.ended) return true;
+      }
+      return false;
     }
-    document.getElementById('prevBtn').addEventListener('click', () => goTo(index-1));
-    document.getElementById('nextBtn').addEventListener('click', () => goTo(index+1));
-    setInterval(()=> {
-      const v = track.children[index]?.querySelector('video');
-      if (v && !v.paused && !v.ended) return; // no avanzar si hay video reproduciéndose
-      goTo(index+1);
-    }, 5000);
-    goTo(0);
+
+    function setActive(i){
+      index = (i + total) % total;
+      dots.forEach((d, di) => d.classList.toggle('active', di === index));
+      if (counter) counter.textContent = `${index + 1} / ${total}`;
+    }
+
+    function goTo(i){
+      viewport.querySelectorAll('video').forEach(v => { try{ v.pause(); }catch(_){} });
+      const target = (i + total) % total;
+      viewport.scrollTo({ left: viewport.clientWidth * target, behavior: 'smooth' });
+      setActive(target);
+    }
+
+    document.getElementById('prevBtn').addEventListener('click', () => goTo(index - 1));
+    document.getElementById('nextBtn').addEventListener('click', () => goTo(index + 1));
+
+    const io = new IntersectionObserver((entries) => {
+      for (const e of entries){
+        if (e.isIntersecting){
+          const i = Number(e.target.dataset.index || 0);
+          setActive(i);
+        }
+      }
+    }, { root: viewport, threshold: 0.6 });
+    viewport.querySelectorAll('.carousel-slide').forEach(s => io.observe(s));
+
+    const reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    let autoTimer = null;
+    function startAuto(){
+      if (reduceMotion) return;
+      stopAuto();
+      autoTimer = setInterval(() => {
+        if (isAnyVideoPlaying()) return;
+        goTo(index + 1);
+      }, 5000);
+    }
+    function stopAuto(){
+      if (autoTimer) clearInterval(autoTimer);
+      autoTimer = null;
+    }
+
+    carousel.addEventListener('pointerenter', stopAuto);
+    carousel.addEventListener('pointerleave', startAuto);
+    carousel.addEventListener('focusin', stopAuto);
+    carousel.addEventListener('focusout', startAuto);
+    viewport.addEventListener('play', (e) => {
+      if (e.target && e.target.tagName === 'VIDEO') stopAuto();
+    }, true);
+    viewport.addEventListener('pause', (e) => {
+      if (e.target && e.target.tagName === 'VIDEO') startAuto();
+    }, true);
+
+    setActive(0);
+    startAuto();
   </script>
 
   <!-- Botón flotante WhatsApp -->
