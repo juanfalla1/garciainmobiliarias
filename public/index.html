@@ -5,11 +5,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Inmobiliaria García, Rincón y CIA</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
 
   <style>
     :root{
       --primary:#1a3a6c;--secondary:#c9a74d;--accent:#8fb8d6;--light:#f8f9fa;--dark:#343a40;--gray:#6c757d;--success:#28a745;
-      --font-main:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;
+      --font-main:'Montserrat','Trebuchet MS',Tahoma,sans-serif;
+      --font-display:'Playfair Display',Georgia,'Times New Roman',serif;
     }
     *{margin:0;padding:0;box-sizing:border-box}
     body{font-family:var(--font-main);line-height:1.6;color:#333;background:#f5f7fa;overflow-x:hidden}
@@ -126,13 +130,23 @@
     .whatsapp-float:hover{transform:scale(1.1)}
 
     /* ---------- Galeria / Carrusel (fotos + videos) ---------- */
-    .gallery-section{padding:70px 0;background:linear-gradient(180deg,#ffffff 0%, #f0f5fc 55%, #ffffff 100%)}
-    .gallery-intro{max-width:760px;margin:10px auto 0;text-align:center;color:var(--gray)}
+    .gallery-section{padding:80px 0;background:
+      radial-gradient(1200px 600px at 0% 5%, rgba(201,167,77,.15), transparent 60%),
+      radial-gradient(1000px 550px at 100% 0%, rgba(26,58,108,.14), transparent 58%),
+      linear-gradient(180deg,#ffffff 0%, #f4f7fd 45%, #ffffff 100%)}
+    .gallery-badge{display:inline-flex;align-items:center;gap:8px;padding:8px 14px;border-radius:999px;font-size:.8rem;letter-spacing:.08em;text-transform:uppercase;color:#fff;background:linear-gradient(135deg,#bb9442,#d8b96f);box-shadow:0 6px 18px rgba(187,148,66,.25)}
+    .gallery-section .section-title{margin-bottom:18px}
+    .gallery-section .section-title h2{font-family:var(--font-display);font-size:2.2rem}
+    .gallery-intro{max-width:820px;margin:10px auto 0;text-align:center;color:#4f5664;font-size:1.06rem}
+    .gallery-highlights{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;max-width:1060px;margin:24px auto 8px}
+    .highlight-card{background:#fff;border:1px solid rgba(26,58,108,.08);border-radius:14px;padding:14px 16px;box-shadow:0 8px 24px rgba(8,20,50,.08)}
+    .highlight-card h3{color:var(--primary);font-size:1rem;margin-bottom:4px}
+    .highlight-card p{font-size:.93rem;color:var(--gray)}
 
     .carousel{position:relative;width:100%;max-width:1060px;margin:28px auto 0;border-radius:16px;overflow:hidden;
       background:radial-gradient(1200px 600px at 20% 10%, rgba(143,184,214,.35), transparent 55%),
-                 radial-gradient(900px 520px at 80% 0%, rgba(201,167,77,.22), transparent 55%),
-                 linear-gradient(180deg, #0d1a2f 0%, #060b14 100%);
+                  radial-gradient(900px 520px at 80% 0%, rgba(201,167,77,.22), transparent 55%),
+                  linear-gradient(180deg, #0d1a2f 0%, #060b14 100%);
       box-shadow:0 18px 50px rgba(0,0,0,.18);
       border:1px solid rgba(255,255,255,.10);
     }
@@ -146,7 +160,7 @@
       aspect-ratio:16/9;display:flex;align-items:center;justify-content:center}
     .carousel-slide img, .carousel-slide video{width:100%;height:100%;object-fit:contain;display:block}
     .carousel-slide video{background:#000}
-    .carousel-caption{padding:10px 4px 2px;color:rgba(255,255,255,.86);font-size:.95rem;text-align:center}
+    .carousel-caption{padding:10px 4px 2px;color:rgba(255,255,255,.9);font-size:.95rem;text-align:center;line-height:1.5}
 
     .carousel-nav{position:absolute;inset:0;display:flex;justify-content:space-between;align-items:center;pointer-events:none}
     .carousel-btn{pointer-events:all;border:0;cursor:pointer;margin:0 12px;width:44px;height:44px;border-radius:999px;
@@ -182,6 +196,7 @@
       .carousel-slide{padding:10px}
       .carousel-caption{font-size:.9rem}
       .carousel-btn{width:40px;height:40px}
+      .gallery-section .section-title h2{font-size:1.9rem}
     }
     @media (max-width: 576px){
       .hero h2{font-size:1.8rem}
@@ -258,8 +273,29 @@
   <!-- Carrusel (FOTOS + VIDEOS) -->
   <section class="gallery-section" id="gallery">
     <div class="container">
-      <div class="section-title"><h2>Galería</h2></div>
-      <p class="gallery-intro">Fotos y recorridos en video de la propiedad. Desliza en el carrusel o usa las flechas.</p>
+      <div class="section-title">
+        <span class="gallery-badge"><i class="fas fa-gem"></i> Galería Premium</span>
+        <h2>Galería Premium</h2>
+      </div>
+      <p class="gallery-intro">Descubre cada detalle de Casa Linsa en Moniquirá, Boyacá: una propiedad exclusiva con entorno natural, zonas de bienestar y espacios deportivos para vivir una experiencia única todos los días.</p>
+      <div class="gallery-highlights">
+        <article class="highlight-card">
+          <h3>Piscina panorámica</h3>
+          <p>Diseño moderno con vista abierta y ambiente de club privado.</p>
+        </article>
+        <article class="highlight-card">
+          <h3>Bienestar integral</h3>
+          <p>Gimnasio equipado y sauna en madera para relajación total.</p>
+        </article>
+        <article class="highlight-card">
+          <h3>Zonas deportivas</h3>
+          <p>Cancha de fútbol y cancha de tenis para una vida activa.</p>
+        </article>
+        <article class="highlight-card">
+          <h3>Ubicación premium</h3>
+          <p>Acceso controlado, urbanismo de alto nivel y paisajes de Boyacá.</p>
+        </article>
+      </div>
 
       <div class="carousel" id="mediaCarousel">
         <div class="carousel-viewport" id="carouselViewport" aria-label="Carrusel de fotos y videos"></div>
@@ -487,37 +523,37 @@
 
     /* ------- Galeria (lista EXACTA + encodeURI para nombres con espacios) ------- */
     const mediaFiles = [
-      // IMAGENES
-      { type: 'image', src: 'videos/finca-1_01.jpg', alt: 'finca-1_01' },
-      { type: 'image', src: 'videos/finca-1_01 - Copy.jpg', alt: 'finca-1_01 - Copy' },
-      { type: 'image', src: 'videos/finca-1_02.jpg', alt: 'finca-1_02' },
-      { type: 'image', src: 'videos/finca-1_02 - Copy.jpg', alt: 'finca-1_02 - Copy' },
-      { type: 'image', src: 'videos/finca-1_02 (2).jpg', alt: 'finca-1_02 (2)' },
-      { type: 'image', src: 'videos/finca-1_03.jpg', alt: 'finca-1_03' },
-      { type: 'image', src: 'videos/finca-1_03 - Copy.jpg', alt: 'finca-1_03 - Copy' },
-      { type: 'image', src: 'videos/finca-1_04.jpg', alt: 'finca-1_04' },
-      { type: 'image', src: 'videos/finca-1_05.jpg', alt: 'finca-1_05' },
-      { type: 'image', src: 'videos/finca-1_06.jpg', alt: 'finca-1_06' },
-      { type: 'image', src: 'videos/finca-1_07.jpg', alt: 'finca-1_07' },
-      { type: 'image', src: 'videos/finca-1_08.jpg', alt: 'finca-1_08' },
-      { type: 'image', src: 'videos/finca-1_09.jpg', alt: 'finca-1_09' },
-      { type: 'image', src: 'videos/finca-1_10.jpg', alt: 'finca-1_10' },
-      { type: 'image', src: 'videos/finca-1_11.jpg', alt: 'finca-1_11' },
-      { type: 'image', src: 'videos/finca-1_12.jpg', alt: 'finca-1_12' },
-      { type: 'image', src: 'videos/finca-13.jpg', alt: 'finca-13' },
-      { type: 'image', src: 'videos/WhatsApp Image 2026-02-11 at 2.16.49 PM.jpeg', alt: 'WhatsApp Image 2026-02-11 at 2.16.49 PM' },
-      { type: 'image', src: 'videos/WhatsApp Image 2026-02-11 at 2.16.54 PM.jpeg', alt: 'WhatsApp Image 2026-02-11 at 2.16.54 PM' },
+      // IMAGENES PREMIUM
+      { type: 'image', src: 'videos/finca-1_01.jpg', alt: 'Vista exterior Casa Linsa', caption: 'Arquitectura contemporánea en un entorno natural privilegiado de Moniquirá.' },
+      { type: 'image', src: 'videos/finca-1_01 - Copy.jpg', alt: 'Ingreso principal', caption: 'Acceso amplio y seguro, ideal para recibir a tus invitados con estilo.' },
+      { type: 'image', src: 'videos/finca-1_02.jpg', alt: 'Piscina principal', caption: 'Piscina de gran formato para disfrutar días de sol en ambiente exclusivo.' },
+      { type: 'image', src: 'videos/finca-1_02 - Copy.jpg', alt: 'Piscina al atardecer', caption: 'Atardeceres inolvidables con iluminación elegante y atmósfera resort.' },
+      { type: 'image', src: 'videos/finca-1_02 (2).jpg', alt: 'Zona húmeda premium', caption: 'Zona húmeda diseñada para descanso, bienestar y alto confort.' },
+      { type: 'image', src: 'videos/finca-1_03.jpg', alt: 'Cancha de fútbol', caption: 'Cancha de fútbol para compartir en familia y mantener un estilo de vida activo.' },
+      { type: 'image', src: 'videos/finca-1_03 - Copy.jpg', alt: 'Cancha de tenis', caption: 'Cancha de tenis con vista abierta y excelente mantenimiento.' },
+      { type: 'image', src: 'videos/finca-1_04.jpg', alt: 'Gimnasio privado', caption: 'Gimnasio equipado para entrenamiento diario sin salir de casa.' },
+      { type: 'image', src: 'videos/finca-1_05.jpg', alt: 'Sauna en madera', caption: 'Sauna en madera natural para una experiencia de relajación total.' },
+      { type: 'image', src: 'videos/finca-1_06.jpg', alt: 'Portería y acceso', caption: 'Urbanismo organizado con portería y control de ingreso.' },
+      { type: 'image', src: 'videos/finca-1_07.jpg', alt: 'Vías internas', caption: 'Vías internas amplias, limpias y de excelente presentación.' },
+      { type: 'image', src: 'videos/finca-1_08.jpg', alt: 'Entorno paisajístico', caption: 'Paisajismo cuidado que realza el valor y la elegancia del conjunto.' },
+      { type: 'image', src: 'videos/finca-1_09.jpg', alt: 'Zona residencial', caption: 'Sector residencial con casas modernas y alto potencial de valorización.' },
+      { type: 'image', src: 'videos/finca-1_10.jpg', alt: 'Lote premium', caption: 'Espacios abiertos y visuales despejadas para un estilo de vida superior.' },
+      { type: 'image', src: 'videos/finca-1_11.jpg', alt: 'Vista panorámica', caption: 'Panorámicas de Boyacá que convierten cada día en una experiencia única.' },
+      { type: 'image', src: 'videos/finca-1_12.jpg', alt: 'Conjunto exclusivo', caption: 'Ambiente tranquilo, seguro y diseñado para vivir con calidad.' },
+      { type: 'image', src: 'videos/finca-13.jpg', alt: 'Detalle de zonas comunes', caption: 'Zonas comunes de alto nivel pensadas para disfrutar y compartir.' },
+      { type: 'image', src: 'videos/WhatsApp Image 2026-02-11 at 2.16.49 PM.jpeg', alt: 'Zona social exterior', caption: 'Espacios sociales al aire libre para momentos memorables con familia y amigos.' },
+      { type: 'image', src: 'videos/WhatsApp Image 2026-02-11 at 2.16.54 PM.jpeg', alt: 'Vista institucional del proyecto', caption: 'Presentación impecable desde el ingreso: orden, diseño y categoría.' },
 
       // VIDEOS
-      { type: 'video', src: 'videos/tour1.mp4' },
-      { type: 'video', src: 'videos/tour2.mp4' },
-      { type: 'video', src: 'videos/finca-1_tour-01.mp4' },
-      { type: 'video', src: 'videos/finca-1_tour-02.mp4' },
-      { type: 'video', src: 'videos/finca-1_tour-03.mp4' },
-      { type: 'video', src: 'videos/finca-1_tour-04.mp4' },
-      { type: 'video', src: 'videos/WhatsApp Video 2026-02-11 at 2.16.53 PM.mp4' },
-      { type: 'video', src: 'videos/WhatsApp Video 2026-02-11 at 2.16.53 PM (1).mp4' },
-      { type: 'video', src: 'videos/WhatsApp Video 2026-02-11 at 2.16.53 PM (2).mp4' }
+      { type: 'video', src: 'videos/tour1.mp4', caption: 'Recorrido completo: conoce la distribución y acabados de Casa Linsa.' },
+      { type: 'video', src: 'videos/tour2.mp4', caption: 'Tour de estilo de vida: confort, amplitud y entorno natural.' },
+      { type: 'video', src: 'videos/finca-1_tour-01.mp4', caption: 'Video premium 1: zonas exteriores y acceso principal.' },
+      { type: 'video', src: 'videos/finca-1_tour-02.mp4', caption: 'Video premium 2: piscina y espacios de descanso.' },
+      { type: 'video', src: 'videos/finca-1_tour-03.mp4', caption: 'Video premium 3: áreas deportivas y entorno verde.' },
+      { type: 'video', src: 'videos/finca-1_tour-04.mp4', caption: 'Video premium 4: detalles que elevan tu inversión inmobiliaria.' },
+      { type: 'video', src: 'videos/WhatsApp Video 2026-02-11 at 2.16.53 PM.mp4', caption: 'Vista dinámica del proyecto: exclusividad y proyección de valorización.' },
+      { type: 'video', src: 'videos/WhatsApp Video 2026-02-11 at 2.16.53 PM (1).mp4', caption: 'Recorrido visual de alto impacto para mostrar todo su potencial.' },
+      { type: 'video', src: 'videos/WhatsApp Video 2026-02-11 at 2.16.53 PM (2).mp4', caption: 'Cierre de tour: Moniquirá, Boyacá, destino ideal para vivir e invertir.' }
     ];
 
     const viewport = document.getElementById('carouselViewport');
