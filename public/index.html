@@ -142,6 +142,12 @@
     .highlight-card{background:#fff;border:1px solid rgba(26,58,108,.08);border-radius:14px;padding:14px 16px;box-shadow:0 8px 24px rgba(8,20,50,.08)}
     .highlight-card h3{color:var(--primary);font-size:1rem;margin-bottom:4px}
     .highlight-card p{font-size:.93rem;color:var(--gray)}
+    .gallery-subtitle{font-family:var(--font-display);font-size:1.5rem;color:var(--primary);text-align:center;margin:28px 0 14px}
+    .photo-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;max-width:1060px;margin:0 auto 10px}
+    .photo-card{background:#fff;border:1px solid rgba(26,58,108,.09);border-radius:14px;overflow:hidden;box-shadow:0 8px 24px rgba(8,20,50,.08);transform:translateY(0);transition:transform .2s ease, box-shadow .2s ease}
+    .photo-card:hover{transform:translateY(-4px);box-shadow:0 14px 30px rgba(8,20,50,.14)}
+    .photo-card img{width:100%;height:210px;object-fit:cover;display:block}
+    .photo-caption{padding:10px 12px;color:#4f5664;font-size:.92rem;line-height:1.4}
 
     .carousel{position:relative;width:100%;max-width:1060px;margin:28px auto 0;border-radius:16px;overflow:hidden;
       background:radial-gradient(1200px 600px at 20% 10%, rgba(143,184,214,.35), transparent 55%),
@@ -197,6 +203,7 @@
       .carousel-caption{font-size:.9rem}
       .carousel-btn{width:40px;height:40px}
       .gallery-section .section-title h2{font-size:1.9rem}
+      .photo-card img{height:190px}
     }
     @media (max-width: 576px){
       .hero h2{font-size:1.8rem}
@@ -297,15 +304,19 @@
         </article>
       </div>
 
-      <div class="carousel" id="mediaCarousel">
-        <div class="carousel-viewport" id="carouselViewport" aria-label="Carrusel de fotos y videos"></div>
+      <h3 class="gallery-subtitle">Fotos Premium</h3>
+      <div class="photo-grid" id="photoGrid" aria-label="Galería de fotos premium"></div>
+
+      <h3 class="gallery-subtitle">Recorridos en Video</h3>
+      <div class="carousel" id="videoCarousel">
+        <div class="carousel-viewport" id="videoCarouselViewport" aria-label="Carrusel de videos"></div>
         <div class="carousel-nav">
-          <button class="carousel-btn" id="prevBtn" aria-label="Anterior">&#10094;</button>
-          <button class="carousel-btn" id="nextBtn" aria-label="Siguiente">&#10095;</button>
+          <button class="carousel-btn" id="videoPrevBtn" aria-label="Video anterior">&#10094;</button>
+          <button class="carousel-btn" id="videoNextBtn" aria-label="Video siguiente">&#10095;</button>
         </div>
         <div class="carousel-footer" aria-hidden="false">
-          <div class="carousel-counter" id="carouselCounter">1 / 1</div>
-          <div class="carousel-dots" id="carouselDots"></div>
+          <div class="carousel-counter" id="videoCarouselCounter">1 / 1</div>
+          <div class="carousel-dots" id="videoCarouselDots"></div>
         </div>
       </div>
     </div>
@@ -521,52 +532,56 @@
       });
     }
 
-    /* ------- Galeria (lista EXACTA + encodeURI para nombres con espacios) ------- */
-    const mediaFiles = [
-      // IMAGENES PREMIUM
-      { type: 'image', src: 'videos/finca-1_01.jpg', alt: 'Vista exterior Casa Linsa', caption: 'Arquitectura contemporánea en un entorno natural privilegiado de Moniquirá.' },
-      { type: 'image', src: 'videos/finca-1_01 - Copy.jpg', alt: 'Ingreso principal', caption: 'Acceso amplio y seguro, ideal para recibir a tus invitados con estilo.' },
-      { type: 'image', src: 'videos/finca-1_02.jpg', alt: 'Piscina principal', caption: 'Piscina de gran formato para disfrutar días de sol en ambiente exclusivo.' },
-      { type: 'image', src: 'videos/finca-1_02 - Copy.jpg', alt: 'Piscina al atardecer', caption: 'Atardeceres inolvidables con iluminación elegante y atmósfera resort.' },
-      { type: 'image', src: 'videos/finca-1_02 (2).jpg', alt: 'Zona húmeda premium', caption: 'Zona húmeda diseñada para descanso, bienestar y alto confort.' },
-      { type: 'image', src: 'videos/finca-1_03.jpg', alt: 'Cancha de fútbol', caption: 'Cancha de fútbol para compartir en familia y mantener un estilo de vida activo.' },
-      { type: 'image', src: 'videos/finca-1_03 - Copy.jpg', alt: 'Cancha de tenis', caption: 'Cancha de tenis con vista abierta y excelente mantenimiento.' },
-      { type: 'image', src: 'videos/finca-1_04.jpg', alt: 'Gimnasio privado', caption: 'Gimnasio equipado para entrenamiento diario sin salir de casa.' },
-      { type: 'image', src: 'videos/finca-1_05.jpg', alt: 'Sauna en madera', caption: 'Sauna en madera natural para una experiencia de relajación total.' },
-      { type: 'image', src: 'videos/finca-1_06.jpg', alt: 'Portería y acceso', caption: 'Urbanismo organizado con portería y control de ingreso.' },
-      { type: 'image', src: 'videos/finca-1_07.jpg', alt: 'Vías internas', caption: 'Vías internas amplias, limpias y de excelente presentación.' },
-      { type: 'image', src: 'videos/finca-1_08.jpg', alt: 'Entorno paisajístico', caption: 'Paisajismo cuidado que realza el valor y la elegancia del conjunto.' },
-      { type: 'image', src: 'videos/finca-1_09.jpg', alt: 'Zona residencial', caption: 'Sector residencial con casas modernas y alto potencial de valorización.' },
-      { type: 'image', src: 'videos/finca-1_10.jpg', alt: 'Lote premium', caption: 'Espacios abiertos y visuales despejadas para un estilo de vida superior.' },
-      { type: 'image', src: 'videos/finca-1_11.jpg', alt: 'Vista panorámica', caption: 'Panorámicas de Boyacá que convierten cada día en una experiencia única.' },
-      { type: 'image', src: 'videos/finca-1_12.jpg', alt: 'Conjunto exclusivo', caption: 'Ambiente tranquilo, seguro y diseñado para vivir con calidad.' },
-      { type: 'image', src: 'videos/finca-13.jpg', alt: 'Detalle de zonas comunes', caption: 'Zonas comunes de alto nivel pensadas para disfrutar y compartir.' },
-      { type: 'image', src: 'videos/WhatsApp Image 2026-02-11 at 2.16.49 PM.jpeg', alt: 'Zona social exterior', caption: 'Espacios sociales al aire libre para momentos memorables con familia y amigos.' },
-      { type: 'image', src: 'videos/WhatsApp Image 2026-02-11 at 2.16.54 PM.jpeg', alt: 'Vista institucional del proyecto', caption: 'Presentación impecable desde el ingreso: orden, diseño y categoría.' },
-
-      // VIDEOS
-      { type: 'video', src: 'videos/tour1.mp4', caption: 'Recorrido completo: conoce la distribución y acabados de Casa Linsa.' },
-      { type: 'video', src: 'videos/tour2.mp4', caption: 'Tour de estilo de vida: confort, amplitud y entorno natural.' },
-      { type: 'video', src: 'videos/finca-1_tour-01.mp4', caption: 'Video premium 1: zonas exteriores y acceso principal.' },
-      { type: 'video', src: 'videos/finca-1_tour-02.mp4', caption: 'Video premium 2: piscina y espacios de descanso.' },
-      { type: 'video', src: 'videos/finca-1_tour-03.mp4', caption: 'Video premium 3: áreas deportivas y entorno verde.' },
-      { type: 'video', src: 'videos/finca-1_tour-04.mp4', caption: 'Video premium 4: detalles que elevan tu inversión inmobiliaria.' },
-      { type: 'video', src: 'videos/WhatsApp Video 2026-02-11 at 2.16.53 PM.mp4', caption: 'Vista dinámica del proyecto: exclusividad y proyección de valorización.' },
-      { type: 'video', src: 'videos/WhatsApp Video 2026-02-11 at 2.16.53 PM (1).mp4', caption: 'Recorrido visual de alto impacto para mostrar todo su potencial.' },
-      { type: 'video', src: 'videos/WhatsApp Video 2026-02-11 at 2.16.53 PM (2).mp4', caption: 'Cierre de tour: Moniquirá, Boyacá, destino ideal para vivir e invertir.' }
+    /* ------- Galeria Premium: FOTOS aparte + VIDEOS aparte ------- */
+    const photoFiles = [
+      { src: 'videos/finca-1_12.jpg', alt: 'Piscina al atardecer', caption: 'Atardeceres espectaculares en una zona social de alto nivel.' },
+      { src: 'videos/WhatsApp Image 2026-02-11 at 2.16.49 PM.jpeg', alt: 'Portería de ingreso', caption: 'Ingreso principal amplio, moderno y con excelente presentación.' },
+      { src: 'videos/WhatsApp Image 2026-02-11 at 2.16.54 PM.jpeg', alt: 'Letrero Linsa', caption: 'Identidad del proyecto Linsa en un entorno verde y exclusivo.' },
+      { src: 'videos/finca-1_10.jpg', alt: 'Zona residencial', caption: 'Vista de casas modernas y lotes con alto potencial de valorización.' },
+      { src: 'videos/finca-1_02.jpg', alt: 'Piscina principal', caption: 'Piscina panorámica de gran formato con ambiente tipo club.' },
+      { src: 'videos/finca-1_03.jpg', alt: 'Cancha de fútbol', caption: 'Cancha de fútbol para disfrutar deporte y vida activa en familia.' },
+      { src: 'videos/finca-1_04.jpg', alt: 'Gimnasio privado', caption: 'Gimnasio dotado para entrenamiento funcional y rutina diaria.' },
+      { src: 'videos/finca-1_05.jpg', alt: 'Sauna en madera', caption: 'Sauna en madera natural para bienestar y relajación total.' },
+      { src: 'videos/finca-1_11.jpg', alt: 'Cancha de tenis', caption: 'Cancha de tenis en superficie de calidad con vista natural.' }
     ];
 
-    const viewport = document.getElementById('carouselViewport');
-    const dotsWrap = document.getElementById('carouselDots');
-    const counter = document.getElementById('carouselCounter');
-    const carousel = document.getElementById('mediaCarousel');
+    const videoFiles = [
+      { src: 'videos/tour1.mp4', caption: 'Recorrido completo por Casa Linsa.' },
+      { src: 'videos/tour2.mp4', caption: 'Tour de estilo de vida y entorno.' },
+      { src: 'videos/finca-1_tour-01.mp4', caption: 'Video premium 1: exterior y acceso principal.' },
+      { src: 'videos/finca-1_tour-02.mp4', caption: 'Video premium 2: piscina y zonas de descanso.' },
+      { src: 'videos/finca-1_tour-03.mp4', caption: 'Video premium 3: áreas deportivas y paisaje.' },
+      { src: 'videos/finca-1_tour-04.mp4', caption: 'Video premium 4: detalles y valorización.' },
+      { src: 'videos/WhatsApp Video 2026-02-11 at 2.16.53 PM.mp4', caption: 'Toma dinámica del proyecto.' },
+      { src: 'videos/WhatsApp Video 2026-02-11 at 2.16.53 PM (1).mp4', caption: 'Recorrido visual de alto impacto.' },
+      { src: 'videos/WhatsApp Video 2026-02-11 at 2.16.53 PM (2).mp4', caption: 'Cierre de tour: Moniquirá, Boyacá.' }
+    ];
 
-    function filenameLabel(src){
-      const name = (src || '').split('/').pop() || '';
-      return name.replace(/\.[^.]+$/, '').replace(/_/g, ' ');
-    }
+    const photoGrid = document.getElementById('photoGrid');
+    photoFiles.forEach((p, i) => {
+      const card = document.createElement('article');
+      card.className = 'photo-card';
 
-    mediaFiles.forEach((m, i) => {
+      const img = document.createElement('img');
+      img.src = encodeURI(p.src);
+      img.alt = p.alt || ('Foto ' + (i + 1));
+      img.loading = 'lazy';
+
+      const cap = document.createElement('div');
+      cap.className = 'photo-caption';
+      cap.textContent = p.caption || p.alt || ('Foto ' + (i + 1));
+
+      card.appendChild(img);
+      card.appendChild(cap);
+      photoGrid.appendChild(card);
+    });
+
+    const viewport = document.getElementById('videoCarouselViewport');
+    const dotsWrap = document.getElementById('videoCarouselDots');
+    const counter = document.getElementById('videoCarouselCounter');
+    const carousel = document.getElementById('videoCarousel');
+
+    videoFiles.forEach((v, i) => {
       const slide = document.createElement('div');
       slide.className = 'carousel-slide';
       slide.dataset.index = String(i);
@@ -577,24 +592,16 @@
       const mediaWrap = document.createElement('div');
       mediaWrap.className = 'carousel-media';
 
-      if (m.type === 'image') {
-        const img = document.createElement('img');
-        img.src = encodeURI(m.src);
-        img.alt = m.alt || ('Imagen ' + (i + 1));
-        img.loading = 'lazy';
-        mediaWrap.appendChild(img);
-      } else {
-        const video = document.createElement('video');
-        video.src = encodeURI(m.src);
-        video.controls = true;
-        video.preload = 'metadata';
-        video.playsInline = true;
-        mediaWrap.appendChild(video);
-      }
+      const video = document.createElement('video');
+      video.src = encodeURI(v.src);
+      video.controls = true;
+      video.preload = 'metadata';
+      video.playsInline = true;
+      mediaWrap.appendChild(video);
 
       const cap = document.createElement('figcaption');
       cap.className = 'carousel-caption';
-      cap.textContent = m.caption || m.alt || filenameLabel(m.src);
+      cap.textContent = v.caption || ('Video ' + (i + 1));
 
       fig.appendChild(mediaWrap);
       fig.appendChild(cap);
@@ -604,14 +611,14 @@
       const dot = document.createElement('button');
       dot.type = 'button';
       dot.className = 'carousel-dot' + (i === 0 ? ' active' : '');
-      dot.setAttribute('aria-label', `Ir a ${i + 1}`);
+      dot.setAttribute('aria-label', `Ir al video ${i + 1}`);
       dot.addEventListener('click', () => goTo(i));
       dotsWrap.appendChild(dot);
     });
 
     let index = 0;
-    const total = mediaFiles.length;
-    const dots = [...document.querySelectorAll('.carousel-dot')];
+    const total = videoFiles.length;
+    const dots = [...dotsWrap.querySelectorAll('.carousel-dot')];
 
     function isAnyVideoPlaying(){
       const vids = viewport.querySelectorAll('video');
@@ -634,8 +641,8 @@
       setActive(target);
     }
 
-    document.getElementById('prevBtn').addEventListener('click', () => goTo(index - 1));
-    document.getElementById('nextBtn').addEventListener('click', () => goTo(index + 1));
+    document.getElementById('videoPrevBtn').addEventListener('click', () => goTo(index - 1));
+    document.getElementById('videoNextBtn').addEventListener('click', () => goTo(index + 1));
 
     const io = new IntersectionObserver((entries) => {
       for (const e of entries){
@@ -656,7 +663,7 @@
       autoTimer = setInterval(() => {
         if (isAnyVideoPlaying()) return;
         goTo(index + 1);
-      }, 5000);
+      }, 6000);
     }
     function stopAuto(){
       if (autoTimer) clearInterval(autoTimer);
