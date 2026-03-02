@@ -307,6 +307,9 @@
       <h3 class="gallery-subtitle">Fotos Premium</h3>
       <div class="photo-grid" id="photoGrid" aria-label="Galería de fotos premium"></div>
 
+      <h3 class="gallery-subtitle">Otras Fotos del Proyecto</h3>
+      <div class="photo-grid" id="otherPhotoGrid" aria-label="Galería adicional de fotos"></div>
+
       <h3 class="gallery-subtitle">Recorridos en Video</h3>
       <div class="carousel" id="videoCarousel">
         <div class="carousel-viewport" id="videoCarouselViewport" aria-label="Carrusel de videos"></div>
@@ -534,15 +537,37 @@
 
     /* ------- Galeria Premium: FOTOS aparte + VIDEOS aparte ------- */
     const photoFiles = [
-      { src: 'videos/finca-1_12.jpg', alt: 'Piscina al atardecer', caption: 'Atardeceres espectaculares en una zona social de alto nivel.' },
-      { src: 'videos/WhatsApp Image 2026-02-11 at 2.16.49 PM.jpeg', alt: 'Portería de ingreso', caption: 'Ingreso principal amplio, moderno y con excelente presentación.' },
-      { src: 'videos/WhatsApp Image 2026-02-11 at 2.16.54 PM.jpeg', alt: 'Letrero Linsa', caption: 'Identidad del proyecto Linsa en un entorno verde y exclusivo.' },
-      { src: 'videos/finca-1_10.jpg', alt: 'Zona residencial', caption: 'Vista de casas modernas y lotes con alto potencial de valorización.' },
-      { src: 'videos/finca-1_02.jpg', alt: 'Piscina principal', caption: 'Piscina panorámica de gran formato con ambiente tipo club.' },
-      { src: 'videos/finca-1_03.jpg', alt: 'Cancha de fútbol', caption: 'Cancha de fútbol para disfrutar deporte y vida activa en familia.' },
-      { src: 'videos/finca-1_04.jpg', alt: 'Gimnasio privado', caption: 'Gimnasio dotado para entrenamiento funcional y rutina diaria.' },
-      { src: 'videos/finca-1_05.jpg', alt: 'Sauna en madera', caption: 'Sauna en madera natural para bienestar y relajación total.' },
-      { src: 'videos/finca-1_11.jpg', alt: 'Cancha de tenis', caption: 'Cancha de tenis en superficie de calidad con vista natural.' }
+      { src: 'videos/Premiun/01.jpeg', alt: 'Gimnasio privado', caption: 'Gimnasio dotado para entrenamiento funcional y rutina diaria.' },
+      { src: 'videos/Premiun/02.jpeg', alt: 'Piscina principal', caption: 'Piscina panorámica de gran formato con ambiente tipo club.' },
+      { src: 'videos/Premiun/03.jpeg', alt: 'Piscina al atardecer', caption: 'Atardeceres espectaculares en una zona social de alto nivel.' },
+      { src: 'videos/Premiun/04.jpeg', alt: 'Cancha de fútbol', caption: 'Cancha de fútbol para disfrutar deporte y vida activa en familia.' },
+      { src: 'videos/Premiun/05.jpeg', alt: 'Portería de ingreso', caption: 'Ingreso principal amplio, moderno y con excelente presentación.' },
+      { src: 'videos/Premiun/06.jpeg', alt: 'Sauna en madera', caption: 'Sauna en madera natural para bienestar y relajación total.' },
+      { src: 'videos/Premiun/07.jpeg', alt: 'Letrero Linsa', caption: 'Identidad del proyecto Linsa en un entorno verde y exclusivo.' },
+      { src: 'videos/Premiun/08.jpeg', alt: 'Cancha de tenis', caption: 'Cancha de tenis en superficie de calidad con vista natural.' },
+      { src: 'videos/Premiun/09.jpeg', alt: 'Zona residencial', caption: 'Vista de casas modernas y lotes con alto potencial de valorización.' }
+    ];
+
+    const otherPhotoFiles = [
+      { src: 'videos/finca-1_01.jpg' },
+      { src: 'videos/finca-1_01 - Copy.jpg' },
+      { src: 'videos/finca-1_02.jpg' },
+      { src: 'videos/finca-1_02 - Copy.jpg' },
+      { src: 'videos/finca-1_02 (2).jpg' },
+      { src: 'videos/finca-1_03.jpg' },
+      { src: 'videos/finca-1_03 - Copy.jpg' },
+      { src: 'videos/finca-1_04.jpg' },
+      { src: 'videos/finca-1_05.jpg' },
+      { src: 'videos/finca-1_06.jpg' },
+      { src: 'videos/finca-1_07.jpg' },
+      { src: 'videos/finca-1_08.jpg' },
+      { src: 'videos/finca-1_09.jpg' },
+      { src: 'videos/finca-1_10.jpg' },
+      { src: 'videos/finca-1_11.jpg' },
+      { src: 'videos/finca-1_12.jpg' },
+      { src: 'videos/finca-13.jpg' },
+      { src: 'videos/WhatsApp Image 2026-02-11 at 2.16.49 PM.jpeg' },
+      { src: 'videos/WhatsApp Image 2026-02-11 at 2.16.54 PM.jpeg' }
     ];
 
     const videoFiles = [
@@ -556,6 +581,15 @@
       { src: 'videos/WhatsApp Video 2026-02-11 at 2.16.53 PM (1).mp4', caption: 'Recorrido visual de alto impacto.' },
       { src: 'videos/WhatsApp Video 2026-02-11 at 2.16.53 PM (2).mp4', caption: 'Cierre de tour: Moniquirá, Boyacá.' }
     ];
+
+    function nicePhotoName(src){
+      const name = (src || '').split('/').pop() || '';
+      return name
+        .replace(/\.[^.]+$/, '')
+        .replace(/[_-]+/g, ' ')
+        .replace(/\s+/g, ' ')
+        .trim();
+    }
 
     const photoGrid = document.getElementById('photoGrid');
     photoFiles.forEach((p, i) => {
@@ -574,6 +608,25 @@
       card.appendChild(img);
       card.appendChild(cap);
       photoGrid.appendChild(card);
+    });
+
+    const otherPhotoGrid = document.getElementById('otherPhotoGrid');
+    otherPhotoFiles.forEach((p, i) => {
+      const card = document.createElement('article');
+      card.className = 'photo-card';
+
+      const img = document.createElement('img');
+      img.src = encodeURI(p.src);
+      img.alt = p.alt || ('Foto adicional ' + (i + 1));
+      img.loading = 'lazy';
+
+      const cap = document.createElement('div');
+      cap.className = 'photo-caption';
+      cap.textContent = p.caption || nicePhotoName(p.src);
+
+      card.appendChild(img);
+      card.appendChild(cap);
+      otherPhotoGrid.appendChild(card);
     });
 
     const viewport = document.getElementById('videoCarouselViewport');
