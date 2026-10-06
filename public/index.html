@@ -620,12 +620,7 @@
       img.alt = p.alt || ('Foto adicional ' + (i + 1));
       img.loading = 'lazy';
 
-      const cap = document.createElement('div');
-      cap.className = 'photo-caption';
-      cap.textContent = p.caption || nicePhotoName(p.src);
-
       card.appendChild(img);
-      card.appendChild(cap);
       otherPhotoGrid.appendChild(card);
     });
 
